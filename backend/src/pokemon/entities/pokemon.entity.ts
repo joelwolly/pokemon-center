@@ -25,4 +25,9 @@ export class Pokemon {
   @ManyToOne(() => User, (user) => user.pokemons)
   owner: User;
 
+  @Column({ nullable: true })
+  color: string;
+
+  @Column({ nullable: true })
+  imageUrl: string;
 }

@@ -11,7 +11,7 @@ export class PokemonService {
   constructor(
     @InjectRepository(Pokemon)
     private readonly pokemonRepository: Repository<Pokemon>,
-  ) {}
+  ) { }
 
   async create(createPokemonDto: CreatePokemonDto, userId: number) {
     const pokemon = this.pokemonRepository.create({
@@ -26,9 +26,9 @@ export class PokemonService {
   }
 
   async update(id: number, updatePokemonDto: UpdatePokemonDto, userId: number) {
-    const pokemon = await this.pokemonRepository.findOne({ 
-      where: { id }, 
-      relations: ['owner'] 
+    const pokemon = await this.pokemonRepository.findOne({
+      where: { id },
+      relations: ['owner']
     });
 
     if (!pokemon) throw new NotFoundException('Pokémon não encontrado');
@@ -42,9 +42,9 @@ export class PokemonService {
   }
 
   async remove(id: number, userId: number) {
-    const pokemon = await this.pokemonRepository.findOne({ 
-      where: { id }, 
-      relations: ['owner'] 
+    const pokemon = await this.pokemonRepository.findOne({
+      where: { id },
+      relations: ['owner']
     });
 
     if (!pokemon) throw new NotFoundException('Pokémon não encontrado');
