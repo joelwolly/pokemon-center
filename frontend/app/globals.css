@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --pk-red: #e3350d;
+  --pk-blue: #31a7d7;
+  --pk-dark-blue: #1b526a;
+  --pk-gray: #f2f2f2;
+}
+
+body {
+  @apply antialiased;
+  background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
+  min-height: 100vh;
+}
+
+@layer components {
+
+  .card-treinador {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    border-top: 8px solid var(--pk-red);
+  }
+
+  .input-pokemon {
+    @apply w-full p-4 bg-gray-100 border-2 border-transparent rounded-xl transition-all outline-none;
+  }
+
+  .input-pokemon:focus {
+    @apply border-blue-400 bg-white shadow-inner;
+  }
+
+  .btn-jornada {
+    @apply w-full py-4 rounded-xl font-black text-white uppercase tracking-wider transition-all;
+    background: var(--pk-blue);
+  }
+
+  .btn-jornada:hover {
+    background: var(--pk-dark-blue);
+    @apply shadow-lg -translate-y-1;
+  }
+
+}
