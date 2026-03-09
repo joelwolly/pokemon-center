@@ -15,4 +15,7 @@ export class User {
 
   @OneToMany(() => Pokemon, (pokemon) => pokemon.owner)
   pokemons: Pokemon[];
+
+  @Column()        
+  name: string;    
 }

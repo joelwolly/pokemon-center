@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common'; // Adicionado Request
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
@@ -8,25 +8,31 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
-  @UseGuards(JwtAuthGuard) 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createPokemonDto: CreatePokemonDto, @Request() req) {
     return this.pokemonService.create(createPokemonDto, req.user.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
-    return this.pokemonService.findAll();
+  findAll(@Request() req) {
+    return this.pokemonService.findAll(req.user.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pokemonService.findOne(+id);
+  findOne(@Param('id') id: string, @Request() req) {
+    return this.pokemonService.findOne(+id, req.user.userId);
   }
 
-  @UseGuards(JwtAuthGuard) 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePokemonDto: UpdatePokemonDto, @Request() req) {
+  update(
+    @Param('id') id: string,
+    @Body() updatePokemonDto: UpdatePokemonDto,
+    @Request() req,
+  ) {
     return this.pokemonService.update(+id, updatePokemonDto, req.user.userId);
   }
 

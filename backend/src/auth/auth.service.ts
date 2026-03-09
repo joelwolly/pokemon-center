@@ -22,16 +22,18 @@ export class AuthService {
     return this.userService.create(signUpDto); 
   }
 
-  async signIn(email: string, pass: string) {
-    const user = await this.userService.findByEmail(email);
-    
-    if (user && (await bcrypt.compare(pass, user.password))) {
-      const payload = { sub: user.id, email: user.email };
-      return {
-        access_token: this.jwtService.sign(payload),
-      };
-    }
-    
-    throw new UnauthorizedException('Credenciais inválidas');
+ async signIn(email: string, pass: string) {
+  const user = await this.userService.findByEmail(email);
+
+  if (user && (await bcrypt.compare(pass, user.password))) {
+    const payload = { sub: user.id, email: user.email, name: user.name };
+
+    return {
+      access_token: this.jwtService.sign(payload),
+      name: user.name
+    };
   }
+
+  throw new UnauthorizedException('Credenciais inválidas');
+}
 }
