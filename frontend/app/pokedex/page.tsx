@@ -32,7 +32,7 @@ export default function PokedexPage() {
   const fetchPokemons = async () => {
     const token = getToken();
     try {
-      const response = await axios.get('http://localhost:3001/pokemon', {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pokemon`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setPokemons(response.data);
@@ -65,7 +65,7 @@ export default function PokedexPage() {
         imageUrl: pokeData.data.sprites.other['official-artwork'].front_default
       };
 
-      await axios.post('http://localhost:3001/pokemon', newPokemon, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pokemon`, newPokemon, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -80,7 +80,7 @@ export default function PokedexPage() {
   const confirmDelete = async () => {
     const token = getToken();
     try {
-      await axios.delete(`http://localhost:3001/pokemon/${pokemonToDelete.id}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${pokemonToDelete.id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setIsDeleteModalOpen(false);
@@ -93,7 +93,7 @@ export default function PokedexPage() {
   const confirmUpdate = async () => {
     const token = getToken();
     try {
-      await axios.patch(`http://localhost:3001/pokemon/${selectedPokemon.id}`, 
+      await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/pokemon/${selectedPokemon.id}`, 
         { level: Number(newLevel) },
         { headers: { Authorization: `Bearer ${token}` } }
       );
