@@ -13,7 +13,7 @@ async function bootstrap() {
     transform: true,
   }));
 
-  await app.listen(3001);
-  console.log('Backend do Centro Pokémon rodando em: http://localhost:3001');
+  const port = process.env.PORT || 3001;
+  await app.listen(port);
 }
 bootstrap();
