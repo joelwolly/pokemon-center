@@ -10,24 +10,22 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 
-
 @Module({
   imports: [
-  ConfigModule.forRoot({ isGlobal: true }),
-  TypeOrmModule.forRoot({
-    type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '1234',
-      database: 'centro_pokemon',
-      entities: [User, Pokemon], 
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      entities: [User, Pokemon],
       synchronize: true,
-  }),
-  AuthModule,
-  UserModule,
-  PokemonModule
-],
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }),
+    AuthModule,
+    UserModule,
+    PokemonModule
+  ],
   controllers: [AppController, UserController],
   providers: [AppService],
 })
